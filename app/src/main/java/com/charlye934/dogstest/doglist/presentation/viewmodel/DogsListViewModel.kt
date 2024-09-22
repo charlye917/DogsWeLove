@@ -20,14 +20,14 @@ class DogsListViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(DogsState())
     val uiState = _uiState.asStateFlow()
 
-    fun getDogs() {
+    fun getDogs(isRefresing: Boolean) {
         viewModelScope.launch {
-            getAllListDogsData()
+            getAllListDogsData(isRefresing)
         }
     }
 
-    private suspend fun getAllListDogsData() {
-        getDogsUseCase().collect {
+    private suspend fun getAllListDogsData(isRefresing: Boolean) {
+        getDogsUseCase(isRefresing).collect {
             when (it) {
                 is TaskUiState.Loading -> {
                     _uiState.value = _uiState.value.copy(isLoading = true)

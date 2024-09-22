@@ -16,9 +16,17 @@ import javax.inject.Inject
 class GetDogsUseCase @Inject constructor(
     private val repository: DogsRepository
 ) {
-    suspend operator fun invoke(): Flow<TaskUiState<List<DogsUI>>> = flow {
-        repository.getAllDogsNetwork()
-            .catch { e -> e.printStackTrace() }
+    suspend operator fun invoke(isRefreshing: Boolean): Flow<TaskUiState<List<DogsUI>>> = flow {
+        repository.getAllDogsNetwork(isRefreshing)
+            .catch { e ->
+                emit(
+                    TaskUiState.Error(
+                        BaseError(
+                            message = e.localizedMessage ?: "Unknown error", code = ""
+                        )
+                    )
+                )
+            }
             .collect { state ->
                 when (state) {
                     is TaskUiState.Loading -> {
@@ -26,20 +34,18 @@ class GetDogsUseCase @Inject constructor(
                     }
 
                     is TaskUiState.Success -> {
-                        Log.d("__tag data", state.data.toString())
-                        val data = state.data
-                        val newData = dogsListResponseToUI(data)
-                        emit(TaskUiState.Success(data = newData))
+
+                        val uiData = dogsListResponseToUI(state.data)
+                        emit(TaskUiState.Success(data = uiData))
                     }
 
                     is TaskUiState.Error -> {
-                        Log.d("__tag data", state.error.toString())
-                        val error = state
+                        Log.d("__tag error", state.error.message.toString())
                         emit(
                             TaskUiState.Error(
                                 BaseError(
-                                    message = error.error.message,
-                                    code = error.error.code
+                                    message = state.error.message,
+                                    code = state.error.code
                                 )
                             )
                         )

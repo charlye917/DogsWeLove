@@ -1,7 +1,6 @@
 package com.charlye934.dogstest.core.network
 
 import android.content.Context
-import com.charlye934.dogstest.R
 import retrofit2.Response
 
 open class BaseApiResponse {
@@ -10,25 +9,22 @@ open class BaseApiResponse {
         apiCall: suspend () -> Response<T>
     ): TaskUiState<T> {
         return try {
-            val result = apiCall()
-            if (result.isSuccessful) {
-                TaskUiState.Success(result.body() as T)
+            val response = apiCall()
+            if (response.isSuccessful) {
+                TaskUiState.Success(response.body()!!)
             } else {
-                val exception = result.errorBody()
-                    ?: Exception(context.getString(R.string.generic_subtitle_error))
                 TaskUiState.Error(
-                    error = BaseError(
-                        message = result.message()
-                            ?: context.getString(R.string.generic_subtitle_error),
-                        code = "UNKNOWN_ERROR"
+                    BaseError(
+                        message = response.message() ?: "Unknown error",
+                        code = response.code().toString()
                     )
                 )
             }
         } catch (e: Exception) {
             TaskUiState.Error(
-                error = BaseError(
-                    message = context.getString(R.string.generic_subtitle_error),
-                    code = "400"
+                BaseError(
+                    message = e.localizedMessage ?: "Unknown error",
+                    code = "NETWORK_ERROR"
                 )
             )
         }
