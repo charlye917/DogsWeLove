@@ -1,7 +1,7 @@
 package com.charlye934.dogstest.doglist.data.remote.service
 
-import com.charlye934.dogstest.doglist.data.remote.model.response.DogsResponse
 import com.charlye934.dogstest.core.network.BaseServiceResponse
+import com.charlye934.dogstest.doglist.data.remote.model.response.DogsResponse
 import retrofit2.http.GET
 
 interface DogApiService {

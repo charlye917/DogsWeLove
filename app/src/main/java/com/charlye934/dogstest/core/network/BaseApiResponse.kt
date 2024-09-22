@@ -10,16 +10,17 @@ open class BaseApiResponse {
     ): Resources<T> {
         return try {
             val response = apiCall()
-            if(response.success && response.result != null)
+            if (response.success && response.result != null)
                 Resources.Success(response.result)
             else
                 Resources.Error(
                     error = BaseError(
-                        message = response.error?.message ?: context.getString(R.string.generic_subtitle_error),
+                        message = response.error?.message
+                            ?: context.getString(R.string.generic_subtitle_error),
                         code = response.error?.code ?: "-1"
                     )
                 )
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Resources.Error(
                 error = BaseError(
                     message = context.getString(R.string.generic_subtitle_error),

@@ -1,7 +1,7 @@
 package com.charlye934.dogstest.core.di
 
-import com.charlye934.dogstest.doglist.data.remote.service.DogApiService
 import com.charlye934.dogstest.BuildConfig
+import com.charlye934.dogstest.doglist.data.remote.service.DogApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

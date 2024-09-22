@@ -16,10 +16,10 @@ class DogsRepositoryImp @Inject constructor(
     private val dataSoruces: DogsRemoteDataSources,
     @ApplicationContext private val context: Context
 ) : DogsRepository,
-    BaseApiResponse(){
+    BaseApiResponse() {
 
     override suspend fun getAllDogsNetwork(): Flow<Resources<List<DogsResponse>>> = flow {
-            emit(Resources.Loading)
-            emit(safeApiCall(context){ dataSoruces.getAllDogs() })
-        }.flowOn(Dispatchers.IO)
+        emit(Resources.Loading)
+        emit(safeApiCall(context) { dataSoruces.getAllDogs() })
+    }.flowOn(Dispatchers.IO)
 }
