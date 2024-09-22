@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DogsWeLove</string>
+    <string name="internet_error">Problemas al conectar \n con el servicio</string>
+    <string name="generic_subtitle_error">Por el momento, no se pudo completar la solicitud. Intenta más tarde.</string>
+</resources>
