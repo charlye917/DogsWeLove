@@ -2,26 +2,30 @@ package com.charlye934.dogstest.core.network
 
 import android.content.Context
 import com.charlye934.dogstest.R
+import retrofit2.Response
 
 open class BaseApiResponse {
-    suspend fun <T> safeApiCall(
+    suspend fun <T : Any> safeApiCall(
         context: Context,
-        apiCall: suspend () -> BaseServiceResponse<T>
-    ): Resources<T> {
+        apiCall: suspend () -> Response<T>
+    ): TaskUiState<T> {
         return try {
-            val response = apiCall()
-            if (response.success && response.result != null)
-                Resources.Success(response.result)
-            else
-                Resources.Error(
+            val result = apiCall()
+            if (result.isSuccessful) {
+                TaskUiState.Success(result.body() as T)
+            } else {
+                val exception = result.errorBody()
+                    ?: Exception(context.getString(R.string.generic_subtitle_error))
+                TaskUiState.Error(
                     error = BaseError(
-                        message = response.error?.message
+                        message = result.message()
                             ?: context.getString(R.string.generic_subtitle_error),
-                        code = response.error?.code ?: "-1"
+                        code = "UNKNOWN_ERROR"
                     )
                 )
+            }
         } catch (e: Exception) {
-            Resources.Error(
+            TaskUiState.Error(
                 error = BaseError(
                     message = context.getString(R.string.generic_subtitle_error),
                     code = "400"

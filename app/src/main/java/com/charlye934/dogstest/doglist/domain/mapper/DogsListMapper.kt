@@ -7,7 +7,7 @@ fun dogsListResponseToUI(list: List<DogsResponse>) =
     list.map {
         DogsUI(
             dogName = it.dogName ?: "",
-            dogDescription = it.dogDescription ?: "",
+            dogDescription = it.description ?: "",
             age = it.age.toString(),
             image = it.image ?: ""
         )

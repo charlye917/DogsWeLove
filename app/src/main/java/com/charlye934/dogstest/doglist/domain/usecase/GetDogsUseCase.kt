@@ -1,7 +1,8 @@
 package com.charlye934.dogstest.doglist.domain.usecase
 
+import android.util.Log
 import com.charlye934.dogstest.core.network.BaseError
-import com.charlye934.dogstest.core.network.Resources
+import com.charlye934.dogstest.core.network.TaskUiState
 import com.charlye934.dogstest.doglist.data.repository.DogsRepository
 import com.charlye934.dogstest.doglist.domain.mapper.dogsListResponseToUI
 import com.charlye934.dogstest.doglist.domain.model.DogsUI
@@ -15,25 +16,27 @@ import javax.inject.Inject
 class GetDogsUseCase @Inject constructor(
     private val repository: DogsRepository
 ) {
-    suspend operator fun invoke(): Flow<Resources<List<DogsUI>>> = flow {
+    suspend operator fun invoke(): Flow<TaskUiState<List<DogsUI>>> = flow {
         repository.getAllDogsNetwork()
             .catch { e -> e.printStackTrace() }
             .collect { state ->
                 when (state) {
-                    is Resources.Loading -> {
-                        emit(Resources.Loading)
+                    is TaskUiState.Loading -> {
+                        emit(TaskUiState.Loading)
                     }
 
-                    is Resources.Success -> {
+                    is TaskUiState.Success -> {
+                        Log.d("__tag data", state.data.toString())
                         val data = state.data
                         val newData = dogsListResponseToUI(data)
-                        emit(Resources.Success(data = newData))
+                        emit(TaskUiState.Success(data = newData))
                     }
 
-                    else -> {
-                        val error = state as Resources.Error
+                    is TaskUiState.Error -> {
+                        Log.d("__tag data", state.error.toString())
+                        val error = state
                         emit(
-                            Resources.Error(
+                            TaskUiState.Error(
                                 BaseError(
                                     message = error.error.message,
                                     code = error.error.code

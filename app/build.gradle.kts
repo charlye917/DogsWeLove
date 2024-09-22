@@ -83,4 +83,7 @@ dependencies {
     // HILT
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+
+    //Glide
+    implementation(libs.glideImage)
 }

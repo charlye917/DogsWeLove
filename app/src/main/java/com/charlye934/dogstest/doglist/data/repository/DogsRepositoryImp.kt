@@ -2,7 +2,7 @@ package com.charlye934.dogstest.doglist.data.repository
 
 import android.content.Context
 import com.charlye934.dogstest.core.network.BaseApiResponse
-import com.charlye934.dogstest.core.network.Resources
+import com.charlye934.dogstest.core.network.TaskUiState
 import com.charlye934.dogstest.doglist.data.remote.datasources.DogsRemoteDataSources
 import com.charlye934.dogstest.doglist.data.remote.model.response.DogsResponse
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -18,8 +18,8 @@ class DogsRepositoryImp @Inject constructor(
 ) : DogsRepository,
     BaseApiResponse() {
 
-    override suspend fun getAllDogsNetwork(): Flow<Resources<List<DogsResponse>>> = flow {
-        emit(Resources.Loading)
+    override suspend fun getAllDogsNetwork(): Flow<TaskUiState<List<DogsResponse>>> = flow {
+        emit(TaskUiState.Loading)
         emit(safeApiCall(context) { dataSoruces.getAllDogs() })
     }.flowOn(Dispatchers.IO)
 }
