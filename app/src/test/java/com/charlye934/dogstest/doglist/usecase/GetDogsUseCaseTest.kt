@@ -75,7 +75,6 @@ class GetDogsUseCaseTest {
 
     @Test
     fun `invoke should return error state`() = runTest {
-// Configura el mock para devolver un flujo que emita un error
         coEvery { repository.getAllDogsNetwork(false) } returns flow {
             emit(TaskUiState.Loading)
             emit(TaskUiState.Error(BaseError("Network error", "")))
