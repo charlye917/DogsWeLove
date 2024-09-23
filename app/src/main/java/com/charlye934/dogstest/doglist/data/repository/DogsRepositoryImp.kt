@@ -1,7 +1,6 @@
 package com.charlye934.dogstest.doglist.data.repository
 
 import com.charlye934.dogstest.core.network.BaseApiResponse
-import com.charlye934.dogstest.core.network.NetworkBoundResource
 import com.charlye934.dogstest.core.network.TaskUiState
 import com.charlye934.dogstest.doglist.data.local.dao.DogDao
 import com.charlye934.dogstest.doglist.data.local.entities.DogsInfoEntity

@@ -1,6 +1,8 @@
-package com.charlye934.dogstest.core.network
+package com.charlye934.dogstest.doglist.data.repository
 
 import androidx.annotation.WorkerThread
+import com.charlye934.dogstest.core.network.BaseError
+import com.charlye934.dogstest.core.network.TaskUiState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.firstOrNull
