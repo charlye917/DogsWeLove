@@ -1,6 +1,5 @@
 package com.charlye934.dogstest.doglist.domain.usecase
 
-import android.util.Log
 import com.charlye934.dogstest.core.network.BaseError
 import com.charlye934.dogstest.core.network.TaskUiState
 import com.charlye934.dogstest.doglist.data.repository.DogsRepository
@@ -34,13 +33,11 @@ class GetDogsUseCase @Inject constructor(
                     }
 
                     is TaskUiState.Success -> {
-
                         val uiData = dogsListResponseToUI(state.data)
                         emit(TaskUiState.Success(data = uiData))
                     }
 
                     is TaskUiState.Error -> {
-                        Log.d("__tag error", state.error.message.toString())
                         emit(
                             TaskUiState.Error(
                                 BaseError(

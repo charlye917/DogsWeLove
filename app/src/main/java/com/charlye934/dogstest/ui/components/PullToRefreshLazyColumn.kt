@@ -25,6 +25,7 @@ fun <T> PullToRefreshLazyColumn(
     items: List<T>,
     content: @Composable (T) -> Unit,
     isRefreshing: Boolean,
+    isError: Boolean,
     onRefresh: () -> Unit,
     modifier: Modifier = Modifier,
     lazyListState: LazyListState = rememberLazyListState()
@@ -33,6 +34,7 @@ fun <T> PullToRefreshLazyColumn(
 
     Box(
         modifier = modifier
+            .background(MaterialTheme.colorScheme.primary)
             .nestedScroll(pullToRefreshState.nestedScrollConnection)
     ) {
         LazyColumn(
@@ -67,5 +69,9 @@ fun <T> PullToRefreshLazyColumn(
             modifier = Modifier
                 .align(Alignment.TopCenter),
         )
+
+        if (isError && items.isEmpty()) {
+            ErrorScreen()
+        }
     }
 }

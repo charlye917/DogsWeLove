@@ -23,7 +23,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             DogsTestTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier
+                        .fillMaxSize()
                 ) {
                     DogsListScreen(viewModel)
                 }

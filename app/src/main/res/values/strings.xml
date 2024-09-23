@@ -5,4 +5,6 @@
     <string name="almost_years">Almost %s years</string>
     <string name="internet_error">Problemas al conectar \n con el servicio</string>
     <string name="generic_subtitle_error">Por el momento, no se pudo completar la solicitud. Intenta más tarde.</string>
+    <string name="message_error_conection">Error de conexión</string>
+    <string name="message_error_conection_return">Error de conexión. Intenta más tarde.</string>
 </resources>

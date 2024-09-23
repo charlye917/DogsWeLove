@@ -1,6 +1,5 @@
 package com.charlye934.dogstest.doglist.data.repository
 
-import android.content.Context
 import com.charlye934.dogstest.core.network.BaseApiResponse
 import com.charlye934.dogstest.core.network.NetworkBoundResource
 import com.charlye934.dogstest.core.network.TaskUiState
@@ -11,14 +10,12 @@ import com.charlye934.dogstest.doglist.data.local.entities.dogsListModelToEntity
 import com.charlye934.dogstest.doglist.data.remote.datasources.DogsRemoteDataSources
 import com.charlye934.dogstest.doglist.data.remote.model.response.DogsResponse
 import com.charlye934.dogstest.doglist.data.repository.model.DogsRepositoryModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class DogsRepositoryImp @Inject constructor(
     private val remoteDataSource: DogsRemoteDataSources,
-    private val localDataSource: DogDao,
-    @ApplicationContext private val context: Context
+    private val localDataSource: DogDao
 ) : DogsRepository, BaseApiResponse() {
 
     override suspend fun getAllDogsNetwork(isRefreshing: Boolean): Flow<TaskUiState<List<DogsRepositoryModel>>> {
@@ -29,7 +26,7 @@ class DogsRepositoryImp @Inject constructor(
             }
 
             override suspend fun fetchFromNetwork(): List<DogsResponse> {
-                val result = safeApiCall(context) { remoteDataSource.getAllDogs() }
+                val result = safeApiCall { remoteDataSource.getAllDogs() }
 
                 return when (result) {
                     is TaskUiState.Success -> result.data

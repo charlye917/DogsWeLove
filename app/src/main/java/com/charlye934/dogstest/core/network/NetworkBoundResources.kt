@@ -27,7 +27,7 @@ abstract class NetworkBoundResource<LocalType : Any, RemoteType, ResultType : An
                     TaskUiState.Error(
                         BaseError(
                             exception.localizedMessage ?: "Error desconocido",
-                            code = ""
+                            code = "-1"
                         )
                     )
                 )

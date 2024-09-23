@@ -21,6 +21,7 @@ class DogsListViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     fun getDogs(isRefresing: Boolean) {
+        if (_uiState.value.listDogs.isNotEmpty() && !isRefresing) return
         viewModelScope.launch {
             getAllListDogsData(isRefresing)
         }
