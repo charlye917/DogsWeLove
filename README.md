@@ -3,6 +3,8 @@
 https://github.com/user-attachments/assets/fd7acbb7-39ef-446b-b7b3-5df1cb242481
 
 ## Descripción del Proyecto
+![Captura de pantalla 2024-09-22 a la(s) 8 23 23 p m](https://github.com/user-attachments/assets/86b4220c-6e87-42af-8e5f-d008c6723b66)
+
 
 Este proyecto es una aplicación desarrollada en **Kotlin** utilizando **Jetpack Compose** para la interfaz de usuario, y adopta una arquitectura limpia (Clean Architecture). La app está organizada en varias capas, cada una con su responsabilidad, y utiliza las siguientes tecnologías:
 
